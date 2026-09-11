@@ -979,8 +979,22 @@ button {
   }
 }
 
+/* Helpers for responsive text switching */
+.kicker-desktop {
+  display: inline;
+}
+.kicker-mobile {
+  display: none;
+}
+.pledge-sub-desktop {
+  display: inline;
+}
+.pledge-sub-mobile {
+  display: none;
+}
+
 /* ==========================================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN: FOCUSED, LOW-DENSITY PHONE VIEW
    ========================================================================== */
 @media (max-width: 1024px) {
   .poster-hero {
@@ -988,7 +1002,7 @@ button {
     background-size: cover;
   }
   .hero-editorial-wrap {
-    max-width: 500px;
+    max-width: 480px;
   }
   .manifesto-item-clean {
     grid-template-columns: 80px 1fr;
@@ -1008,45 +1022,241 @@ button {
 }
 
 @media (max-width: 768px) {
+  /* Minimal frosted nav */
   .minimal-nav {
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.25rem;
+  }
+  .nav-brand {
+    font-size: 1.25rem;
   }
   .nav-links {
     display: none;
   }
-  .poster-hero {
-    background-position: center bottom;
-    padding: 6.5rem 0 0;
-  }
-  .hero-container {
-    padding-bottom: 2rem;
-  }
-  .ticker-container {
-    justify-content: flex-start;
-  }
-  .ticker-divider {
+
+  /* Responsive text visibility: keep phone view less wordy & focused */
+  .kicker-desktop {
     display: none;
   }
+  .kicker-mobile {
+    display: inline;
+  }
+  .pledge-sub-desktop {
+    display: none;
+  }
+  .pledge-sub-mobile {
+    display: inline;
+  }
+
+  /* HIDE dense secondary blocks on phone view */
+  .hero-credo-sub {
+    display: none !important;
+  }
+  .manifesto-detail-text {
+    display: none !important;
+  }
+  .manifesto-intro-lead {
+    display: none !important;
+  }
+  .dispatch-body-secondary {
+    display: none !important;
+  }
+
+  /* Hero: focused, crisp, non-colliding layout */
+  .poster-hero {
+    background-position: 68% bottom;
+    background-size: cover;
+    padding: 5.5rem 0 0;
+    min-height: 100svh;
+  }
+  .hero-container {
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .hero-editorial-wrap {
+    max-width: 62%;
+  }
+  .hero-meta-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.85rem;
+    gap: 0.5rem;
+  }
+  .hero-meta-kicker::before {
+    width: 18px;
+  }
+  .hero-giant-title {
+    font-size: clamp(3.2rem, 13vw, 4.4rem);
+    line-height: 0.88;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-credo {
+    margin-bottom: 1.4rem;
+    max-width: 100%;
+  }
+  .hero-credo-lead {
+    font-size: clamp(1.25rem, 5vw, 1.55rem);
+    line-height: 1.15;
+    margin-bottom: 0;
+  }
+  .hero-actions-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .btn-hero-pledge {
+    padding: 0.85rem 1.4rem;
+    font-size: 0.98rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .link-hero-manifesto {
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* Hero bottom ticker: single-line sleek mobile track */
+  .hero-bottom-ticker {
+    padding: 0.65rem 0;
+    overflow: hidden;
+  }
+  .ticker-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 1.25rem;
+  }
+  .ticker-container::-webkit-scrollbar {
+    display: none;
+  }
+  .ticker-item {
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+  .ticker-divider {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.68rem;
+    flex-shrink: 0;
+  }
+
+  /* General mobile layout */
   .container {
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
+  }
+
+  /* Manifesto Section: focused commitments */
+  .manifesto-section {
+    padding: 4.5rem 0 4rem;
+  }
+  .section-head-minimal {
+    margin-bottom: 2.5rem;
+  }
+  .title-mega-clean {
+    font-size: clamp(2.4rem, 10vw, 3.4rem);
+    line-height: 0.94;
   }
   .manifesto-item-clean {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.65rem;
+    padding: 2.2rem 0;
+  }
+  .manifesto-num-clean {
+    font-size: 2.5rem;
+    line-height: 0.9;
+  }
+  .manifesto-title-clean {
+    font-size: 1.55rem;
+    line-height: 1.08;
   }
   .manifesto-body-clean {
     grid-column: span 1;
   }
-  .ask-form-clean {
-    padding: 1.5rem;
+  .manifesto-lead-text {
+    font-size: 1rem;
+    line-height: 1.45;
   }
+
+  /* Dispatch Section */
+  .dispatch-section {
+    padding: 4.5rem 0;
+  }
+  .dispatch-grid {
+    gap: 2.2rem;
+  }
+  .dispatch-quote {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+  }
+  .dispatch-body {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .dispatch-signature {
+    margin-top: 1.5rem;
+    padding-left: 1rem;
+  }
+
+  /* Ask / Letters Section */
+  .ask-section-minimal {
+    padding: 4.5rem 0;
+  }
+  .ask-form-clean {
+    padding: 1.25rem;
+  }
+  .q-item-clean {
+    padding: 1.5rem 0;
+  }
+  .q-text-clean {
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+  .q-answer-clean {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    padding-left: 0.85rem;
+  }
+
+  /* Monumental Pledge */
+  .pledge-section-monumental {
+    padding: 4.5rem 0;
+  }
+  .pledge-box-monumental {
+    padding: 3.5rem 1.25rem;
+  }
+  .pledge-giant-num {
+    font-size: clamp(4.2rem, 16vw, 6rem);
+  }
+  .pledge-sub-clean {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .btn-monumental-pledge {
+    padding: 1.1rem 1.5rem;
+    font-size: 1.05rem;
+    width: 100%;
+  }
+
+  /* Footer */
   .footer-inner-clean {
     flex-direction: column;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 1.5rem;
+  }
+  .footer-brand-huge {
+    font-size: clamp(2.4rem, 9vw, 3.6rem);
   }
   .footer-col-clean {
     text-align: left;
+    font-size: 0.82rem;
   }
 }
 
