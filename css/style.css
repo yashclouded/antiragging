@@ -915,7 +915,7 @@ html, body {
 .pledge-sub-desktop { display: inline; }
 .pledge-sub-mobile { display: none; }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   html, body {
     overflow-x: hidden !important;
   }

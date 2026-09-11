@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let scrollVelocity = 0;
   let finaleTriggered = false;
 
-  const isMobile = () => window.innerWidth <= 768;
+  const isMobile = () => window.innerWidth <= 820;
 
   function recalculateMetrics() {
     if (!horizontalRail || !trackContainer) return;
