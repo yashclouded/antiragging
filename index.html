@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=hz_final_5">
+  <link rel="stylesheet" href="css/style.css?v=hz_final_6">
 </head>
 <body class="horizontal-scroller-active">
 
@@ -32,14 +32,13 @@
       <a href="#indictment" class="nav-item" data-nav-target="1"><span>02</span> Broadsheet</a>
       <a href="#manifesto" class="nav-item" data-nav-target="2"><span>03</span> Commitments</a>
       <a href="#dispatch" class="nav-item" data-nav-target="3"><span>04</span> Dispatch</a>
-      <a href="#ask" class="nav-item" data-nav-target="4"><span>05</span> Letters</a>
-      <a href="#pledge" class="nav-item" data-nav-target="5"><span>06</span> Endorse</a>
+      <a href="#pledge" class="nav-item" data-nav-target="4"><span>05</span> Endorse</a>
       <button type="button" class="nav-haptic-btn" id="audioToggleBtn" title="Toggle Haptics">
         <span id="audioToggleLabel">Haptics: OFF</span>
       </button>
     </nav>
     <div class="nav-mobile-action">
-      <a href="#pledge" class="nav-mobile-pledge-btn" data-nav-target="5">SUPPORT</a>
+      <a href="#pledge" class="nav-mobile-pledge-btn" data-nav-target="4">SUPPORT</a>
     </div>
   </header>
 
@@ -268,66 +267,9 @@
         </section>
 
         <!-- =================================================================
-             SCENE 5: LETTERS TO KRISHNA (Q&A TELEGRAM FEED)
+             SCENE 5: MONUMENTAL SOLIDARITY FINALE (OBSIDIAN & CRIMSON)
              ================================================================= -->
-        <section class="h-scene scene-letters" id="ask" data-scene-index="4">
-          <div class="scene-inner letters-inner">
-            
-            <div class="letters-form-col">
-              <span class="scene-index-badge">05 // Open Dialogue</span>
-              <h2 class="title-mega-clean">Letters to Krishna.</h2>
-              <p class="manifesto-intro-lead">
-                Submit a question or share a concern. Post with your name or completely anonymously.
-              </p>
-
-              <!-- Dispatch Form -->
-              <form class="ask-form-clean" id="askKrishnaForm">
-                <div class="form-field-clean">
-                  <label for="inquiryAuthor">Your Name or Alias</label>
-                  <input type="text" id="inquiryAuthor" class="form-input-clean" placeholder="e.g. Kabir / UG27 / RH3">
-                </div>
-
-                <label class="form-anon-toggle">
-                  <input type="checkbox" id="inquiryAnonymous">
-                  <span>Post Anonymously (Identity concealed)</span>
-                </label>
-
-                <div class="form-field-clean">
-                  <label for="inquiryCategory">Concern Area</label>
-                  <select id="inquiryCategory" class="form-select-clean">
-                    <option value="Campus Safety">Residence Halls &amp; Shuttles</option>
-                    <option value="Initiation Rituals">Society &amp; Sports Inductions</option>
-                    <option value="Whistleblower Shield">Confidentiality &amp; Whistleblowing</option>
-                    <option value="Freshmen Care">Freshmen &amp; Orientation Week</option>
-                    <option value="Committee Bylaws">Committee Accountability</option>
-                  </select>
-                </div>
-
-                <div class="form-field-clean">
-                  <label for="inquiryQuestion">Your Inquiry</label>
-                  <textarea id="inquiryQuestion" class="form-textarea-clean" placeholder="Write your question, feedback, or grievance..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn-clean-submit" id="btnSubmitInquiry">
-                  Send Dispatch
-                </button>
-              </form>
-            </div>
-
-            <!-- Telegram Cards Feed -->
-            <div class="letters-feed-col">
-              <div class="feed-clean" id="questionsFeedContainer">
-                <!-- Injected via js/app.js -->
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- =================================================================
-             SCENE 6: MONUMENTAL SOLIDARITY FINALE (OBSIDIAN & CRIMSON)
-             ================================================================= -->
-        <section class="h-scene scene-finale" id="pledge" data-scene-index="5">
+        <section class="h-scene scene-finale" id="pledge" data-scene-index="4">
           <div class="scene-inner finale-inner">
             
             <div class="finale-monumental-card">
