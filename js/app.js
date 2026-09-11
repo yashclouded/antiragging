@@ -1,10 +1,13 @@
 /**
- * KRISHNA SINGH // ASHOKA ANTI-RAGGING COMMITTEE CAMPAIGN
- * APPLE-GRADE SMOOTH INTERACTION ENGINE & HAPTIC AUDIO
+ * KRISHNA SINGH // ASHOKA ANTI-RAGGING COMMITTEE 2026
+ * APPLE/AWWWARDS-GRADE HORIZONTAL SCROLLYTELLING ENGINE
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Apple-Grade Haptic Audio Synthesizer (Subtle, Acoustic, Crisp)
+
+  // ==========================================================================
+  // 1. ACOUSTIC HAPTIC AUDIO SYNTHESIZER
+  // ==========================================================================
   class HapticAudio {
     constructor() {
       this.ctx = null;
@@ -28,21 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
         this.initCtx();
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        // Subtle haptic pop (like macOS trackpad or iOS keyboard haptic)
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(240, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(260, this.ctx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.025);
-        
-        gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.025);
-        
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start();
         osc.stop(this.ctx.currentTime + 0.025);
-      } catch (e) {
-        // Silent fallback
-      }
+      } catch (e) {}
     }
 
     playStamp() {
@@ -52,19 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(140, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.08);
-        
-        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
-        
+        osc.frequency.setValueAtTime(160, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.09);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.09);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start();
-        osc.stop(this.ctx.currentTime + 0.08);
-      } catch (e) {
-        // Silent fallback
-      }
+        osc.stop(this.ctx.currentTime + 0.09);
+      } catch (e) {}
     }
 
     toggle() {
@@ -102,91 +96,178 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sound = new HapticAudio();
 
-  // Attach haptic feedback to interactive items
-  document.querySelectorAll('button, .nav-link, .filter-btn, .feed-cat-btn').forEach(elem => {
-    elem.addEventListener('click', () => sound.playClick());
+  // ==========================================================================
+  // 2. VIRTUAL HORIZONTAL SCROLLYTELLING ENGINE
+  // ==========================================================================
+  const trackContainer = document.getElementById('scrollTrackContainer');
+  const horizontalRail = document.getElementById('horizontalRail');
+  const progressBar = document.getElementById('scrollProgressBar');
+  const kineticSeal = document.getElementById('kineticSealWrap');
+  const bgParallaxText = document.querySelector('.broadsheet-bg-parallax');
+  const navItems = document.querySelectorAll('#chapterNav .nav-item');
+  const scenes = document.querySelectorAll('.h-scene');
+
+  let maxTranslateX = 0;
+  let scrollTrackHeight = 0;
+  let currentX = 0;
+  let targetX = 0;
+  let prevScrollY = window.scrollY;
+  let scrollVelocity = 0;
+  let finaleTriggered = false;
+
+  function recalculateMetrics() {
+    if (!horizontalRail || !trackContainer) return;
+    
+    // Total horizontal distance to travel
+    const railWidth = horizontalRail.scrollWidth;
+    const windowWidth = window.innerWidth;
+    maxTranslateX = Math.max(0, railWidth - windowWidth);
+
+    // Height of vertical track container required to scroll through horizontal rail
+    scrollTrackHeight = maxTranslateX + window.innerHeight;
+    trackContainer.style.height = `${scrollTrackHeight}px`;
+  }
+
+  window.addEventListener('resize', () => {
+    recalculateMetrics();
+  });
+  recalculateMetrics();
+
+  // Smooth RAF Animation Loop
+  function tick() {
+    // Current vertical scroll progress
+    const scrollY = window.scrollY;
+    const trackTop = trackContainer ? trackContainer.offsetTop : 0;
+    const effectiveScroll = Math.max(0, scrollY - trackTop);
+    const progress = Math.min(1, Math.max(0, effectiveScroll / maxTranslateX));
+
+    // Target X position on rail
+    targetX = progress * maxTranslateX;
+
+    // Physics-based lerp interpolation
+    const ease = 0.12;
+    currentX += (targetX - currentX) * ease;
+
+    // Velocity tracking for 3D kinetic effects
+    scrollVelocity = (scrollY - prevScrollY);
+    prevScrollY = scrollY;
+
+    // Apply horizontal translation
+    if (horizontalRail) {
+      horizontalRail.style.transform = `translate3d(-${currentX.toFixed(2)}px, 0, 0)`;
+    }
+
+    // Update Progress Bar
+    if (progressBar) {
+      progressBar.style.width = `${(progress * 100).toFixed(2)}%`;
+    }
+
+    // Kinetic 3D Seal Rotation
+    if (kineticSeal) {
+      const sealRot = (progress * 540) % 360;
+      const sealTilt = Math.min(25, Math.max(-25, scrollVelocity * 0.4));
+      kineticSeal.style.setProperty('--seal-rot', `${sealRot.toFixed(1)}deg`);
+      kineticSeal.style.setProperty('--seal-tilt', `${sealTilt.toFixed(1)}deg`);
+    }
+
+    // Broadsheet Background Parallax
+    if (bgParallaxText) {
+      const parallaxOffset = currentX * 0.35;
+      bgParallaxText.style.setProperty('--bg-parallax-x', `-${parallaxOffset.toFixed(1)}px`);
+    }
+
+    // Active Chapter Indicator in Nav
+    let activeIndex = 0;
+    scenes.forEach((scene, index) => {
+      const sceneLeft = scene.offsetLeft;
+      const sceneWidth = scene.offsetWidth;
+      if (currentX >= sceneLeft - window.innerWidth * 0.4) {
+        activeIndex = index;
+      }
+    });
+
+    navItems.forEach((item, index) => {
+      if (index === activeIndex) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    // Check if Finale is in view to trigger counter animation
+    const finaleScene = document.getElementById('pledge');
+    if (finaleScene && !finaleTriggered) {
+      const finaleLeft = finaleScene.offsetLeft;
+      if (currentX >= finaleLeft - window.innerWidth * 0.6) {
+        finaleTriggered = true;
+        animatePledgeCounter();
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+
+  // Smooth Chapter Navigation on Click
+  document.querySelectorAll('[data-nav-target]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      sound.playClick();
+      const targetIndex = parseInt(link.getAttribute('data-nav-target'), 10);
+      const targetScene = scenes[targetIndex];
+      if (targetScene && trackContainer) {
+        const sceneLeft = targetScene.offsetLeft;
+        const targetProgress = Math.min(1, sceneLeft / maxTranslateX);
+        const targetScrollY = trackContainer.offsetTop + targetProgress * maxTranslateX;
+        
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: 'smooth'
+        });
+      }
+    });
   });
 
-  // 2. Pledge & Endorsement Counter
-  const PLEDGE_KEY = 'ashoka_krishna_pledged_count';
-  const USER_PLEDGED_KEY = 'ashoka_krishna_has_pledged';
-  const baseCount = 648;
-
-  let currentCount = parseInt(localStorage.getItem(PLEDGE_KEY), 10) || baseCount;
-  let hasPledged = localStorage.getItem(USER_PLEDGED_KEY) === 'true';
-
-  const countDisplay = document.getElementById('pledgeCounterDisplay');
-  const heroCountDisplay = document.getElementById('heroPledgeCount');
-  const pledgeBtn = document.getElementById('pledgeActionBtn');
-  const heroPledgeBtn = document.getElementById('heroPledgeBtn');
-  const pledgeStatus = document.getElementById('pledgeStatusMsg');
-
-  function updatePledgeUI() {
-    if (countDisplay) countDisplay.textContent = currentCount.toLocaleString();
-    if (heroCountDisplay) heroCountDisplay.textContent = `${currentCount}+`;
-
-    if (hasPledged) {
-      if (pledgeBtn) {
-        pledgeBtn.textContent = '✓ Endorsement Secured (Ballot #01)';
-        pledgeBtn.style.background = 'var(--c-black)';
-        pledgeBtn.style.color = 'var(--c-cream)';
-        pledgeBtn.style.boxShadow = '5px 5px 0px var(--c-red)';
-      }
-      if (heroPledgeBtn) {
-        heroPledgeBtn.textContent = '✓ Vote Pledged';
-        heroPledgeBtn.style.background = 'var(--c-black)';
-        heroPledgeBtn.style.color = 'var(--c-cream)';
-        heroPledgeBtn.style.boxShadow = '5px 5px 0px var(--c-red)';
-      }
-      if (pledgeStatus) {
-        pledgeStatus.textContent = 'STATUS: YOUR ENDORSEMENT IS LOGGED FOR KRISHNA SINGH • ARC 2026';
-      }
+  // Keyboard Arrow Navigation (← / →)
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+      window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
     }
-  }
+  });
 
-  function handlePledge() {
-    sound.playStamp();
-    if (!hasPledged) {
-      hasPledged = true;
-      currentCount += 1;
-      localStorage.setItem(USER_PLEDGED_KEY, 'true');
-      localStorage.setItem(PLEDGE_KEY, currentCount);
-    } else {
-      hasPledged = false;
-      currentCount -= 1;
-      localStorage.setItem(USER_PLEDGED_KEY, 'false');
-      localStorage.setItem(PLEDGE_KEY, currentCount);
-      if (pledgeBtn) {
-        pledgeBtn.textContent = 'PLEDGE YOUR VOTE FOR KRISHNA';
-        pledgeBtn.style.background = '';
-        pledgeBtn.style.color = '';
-        pledgeBtn.style.boxShadow = '';
-      }
-      if (heroPledgeBtn) {
-        heroPledgeBtn.textContent = 'PLEDGE VOTE';
-        heroPledgeBtn.style.background = '';
-        heroPledgeBtn.style.color = '';
-        heroPledgeBtn.style.boxShadow = '';
-      }
-      if (pledgeStatus) {
-        pledgeStatus.textContent = '';
-      }
+  // Touch Swipe for Mobile Navigation
+  let touchStartX = 0;
+  let touchStartY = 0;
+  window.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!e.touches.length) return;
+    const deltaX = touchStartX - e.touches[0].clientX;
+    const deltaY = touchStartY - e.touches[0].clientY;
+    
+    // If predominantly horizontal swipe on touch, map to vertical scroll
+    if (Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      window.scrollBy({ top: deltaX * 0.8, behavior: 'auto' });
+      touchStartX = e.touches[0].clientX;
     }
-    updatePledgeUI();
-  }
+  }, { passive: true });
 
-  if (pledgeBtn) pledgeBtn.addEventListener('click', handlePledge);
-  if (heroPledgeBtn) heroPledgeBtn.addEventListener('click', handlePledge);
-  updatePledgeUI();
-
-  // 3. Initial Community Questions Database
+  // ==========================================================================
+  // 3. LETTERS TO KRISHNA (INTERACTIVE Q&A TELEGRAM FEED)
+  // ==========================================================================
   const defaultQuestions = [
     {
       id: 'q-1',
-      author: 'UG27 Freshmen (RH2)',
+      author: 'Kabir V. (UG26)',
       category: 'Campus Safety',
-      question: 'Will there be protection for first-years who report intimidation or informal "intro sessions" in the residence halls?',
-      response: "100% yes. My #1 policy is the Whistleblower Vault with zero administrative retaliation. Any senior intimidating a complainant faces an instant suspension of residential campus privileges pending the 24-hour inquiry.",
+      question: 'How quickly does committee intervention kick in after an incident report is filed?',
+      response: "Within 24 hours mandatory under our proposed statute. No administrative gatekeeping. The student representative is directly notified and immediately opens proceedings.",
       authorRole: 'Krishna Singh',
       status: 'POLICY PLEDGE',
       upvotes: 42,
@@ -196,8 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'q-2',
       author: 'Ashoka Sports Society Member',
       category: 'Initiation Rituals',
-      question: 'How do you plan to handle traditional sports team and dance society "trials" that border on mental hazing?',
-      response: "We are introducing a mandatory Dean-approved onboarding charter for all club and sports inductions. No closed-door hazing rituals disguised as 'bonding'. Committee student observers will conduct unannounced walkthroughs during induction week.",
+      question: 'How do you plan to handle sports team and dance society "trials" that border on mental hazing?',
+      response: "We are introducing a mandatory Dean-approved onboarding charter. No closed-door hazing rituals disguised as 'bonding'. Committee student observers will conduct unannounced walkthroughs during induction week.",
       authorRole: 'Krishna Singh',
       status: 'ANSWERED',
       upvotes: 38,
@@ -208,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
       author: 'Anonymous Student',
       category: 'Whistleblower Shield',
       question: 'How do we know our identity won’t be leaked to the administration or the accused?',
-      response: "Reports sent via the proposed Whistleblower Vault are stripped of metadata and client IP addresses before reaching the committee. Complainants receive an encrypted private token to communicate without revealing their name until they choose to do so.",
+      response: "Reports sent via the proposed Whistleblower Vault are stripped of metadata. Complainants receive an encrypted private token to communicate without revealing their name until they choose to do so.",
       authorRole: 'Krishna Singh',
       status: 'ANSWERED',
       upvotes: 56,
@@ -236,33 +317,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const UPVOTED_KEY = 'ashoka_arc_upvoted_ids';
   let upvotedIds = JSON.parse(localStorage.getItem(UPVOTED_KEY)) || [];
-
   const questionsContainer = document.getElementById('questionsFeedContainer');
-  const feedCountBadge = document.getElementById('feedCountBadge');
-  let currentCategoryFilter = 'All';
 
   function renderQuestions() {
     if (!questionsContainer) return;
 
-    const filtered = currentCategoryFilter === 'All' 
-      ? storedQuestions 
-      : storedQuestions.filter(q => q.category.toLowerCase() === currentCategoryFilter.toLowerCase());
-
-    if (feedCountBadge) {
-      feedCountBadge.textContent = `${filtered.length} Inquiries Displayed`;
-    }
-
-    if (filtered.length === 0) {
-      questionsContainer.innerHTML = `
-        <div class="q-card" style="padding: 3rem; text-align: center;">
-          <p style="color: #ffffff; font-weight: 600;">No inquiries in this category yet.</p>
-          <p style="font-size: 0.9rem; color: var(--text-tertiary); margin-top: 0.5rem;">Be the first to submit a question on the left.</p>
-        </div>
-      `;
-      return;
-    }
-
-    questionsContainer.innerHTML = filtered.map(q => {
+    questionsContainer.innerHTML = storedQuestions.map(q => {
       const isUpvoted = upvotedIds.includes(q.id);
 
       return `
@@ -274,17 +334,17 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="q-text-clean">"${escapeHtml(q.question)}"</div>
           ${q.response ? `
             <div class="q-answer-clean">
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--c-red); display: block; margin-bottom: 0.25rem;">KRISHNA SINGH:</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--c-red); display: block; margin-bottom: 0.2rem;">KRISHNA SINGH:</span>
               ${escapeHtml(q.response)}
             </div>
           ` : `
             <div class="q-answer-clean" style="border-left-color: var(--c-red);">
-              <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--c-red);">Submitted to Candidate Queue</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--c-red);">Submitted to Candidate Queue</span>
             </div>
           `}
           <div class="q-foot-clean">
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #888;">${escapeHtml(q.time || 'Recently')}</span>
-            <button class="btn-upvote-clean ${isUpvoted ? 'upvoted' : ''}" data-id="${q.id}" aria-label="Support this inquiry">
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #888;">${escapeHtml(q.time || 'Recently')}</span>
+            <button class="btn-upvote-clean ${isUpvoted ? 'upvoted' : ''}" data-id="${q.id}">
               ▲ SUPPORT (${q.upvotes})
             </button>
           </div>
@@ -292,13 +352,16 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
-    questionsContainer.querySelectorAll('.btn-upvote').forEach(btn => {
+    questionsContainer.querySelectorAll('.btn-upvote-clean').forEach(btn => {
       btn.addEventListener('click', () => {
         sound.playClick();
         const id = btn.getAttribute('data-id');
         handleUpvote(id);
       });
     });
+
+    // Recalculate metrics when feed updates
+    recalculateMetrics();
   }
 
   function handleUpvote(id) {
@@ -318,24 +381,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderQuestions();
   }
 
-  // Question Form Submission
+  // Form submission
   const askForm = document.getElementById('askKrishnaForm');
-  const anonymousCheckbox = document.getElementById('inquiryAnonymous');
+  const anonToggle = document.getElementById('inquiryAnonymous');
   const authorInput = document.getElementById('inquiryAuthor');
   const categorySelect = document.getElementById('inquiryCategory');
   const questionInput = document.getElementById('inquiryQuestion');
-  const submitBtn = document.getElementById('btnSubmitInquiry');
 
-  if (anonymousCheckbox && authorInput) {
-    anonymousCheckbox.addEventListener('change', () => {
+  if (anonToggle && authorInput) {
+    anonToggle.addEventListener('change', () => {
       sound.playClick();
-      if (anonymousCheckbox.checked) {
+      if (anonToggle.checked) {
         authorInput.value = 'Anonymous Ashokan';
         authorInput.disabled = true;
       } else {
         authorInput.value = '';
         authorInput.disabled = false;
-        authorInput.placeholder = 'e.g. Kabir / UG26 / RH3';
       }
     });
   }
@@ -343,248 +404,129 @@ document.addEventListener('DOMContentLoaded', () => {
   if (askForm) {
     askForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const questionText = questionInput.value.trim();
-      if (!questionText) return;
-
-      let authorName = authorInput.value.trim();
-      if (anonymousCheckbox.checked || !authorName) {
-        authorName = 'Anonymous Ashokan';
-      }
-
-      const category = categorySelect.value || 'Campus Safety';
+      sound.playStamp();
 
       const newQuestion = {
-        id: 'q-' + Date.now(),
-        author: authorName,
-        category: category,
-        question: questionText,
-        response: generateImmediateResponse(questionText, category),
+        id: `q-${Date.now()}`,
+        author: authorInput.value.trim() || 'Ashoka Student',
+        category: categorySelect.value,
+        question: questionInput.value.trim(),
+        response: "Thank you for raising this. This directly informs our mandate for the Anti-Ragging Committee. Every inquiry receives our full attention and a 24-hour hearing mandate.",
         authorRole: 'Krishna Singh',
-        status: 'ANSWERED',
+        status: 'SUBMITTED',
         upvotes: 1,
         time: 'Just now'
       };
 
       storedQuestions.unshift(newQuestion);
       localStorage.setItem(STORAGE_Q_KEY, JSON.stringify(storedQuestions));
+      renderQuestions();
 
-      sound.playStamp();
-
-      submitBtn.textContent = '✓ Inquiry Posted';
-      submitBtn.style.background = 'var(--crimson-alert)';
-      submitBtn.style.color = '#fff';
-      submitBtn.style.boxShadow = '0 6px 20px var(--crimson-glow)';
-
-      setTimeout(() => {
-        submitBtn.textContent = 'SUBMIT INQUIRY TO KRISHNA';
-        submitBtn.style.background = '';
-        submitBtn.style.color = '';
-        submitBtn.style.boxShadow = '';
-      }, 2500);
-
+      // Reset form
       questionInput.value = '';
-      if (!anonymousCheckbox.checked) {
+      if (!anonToggle.checked) {
         authorInput.value = '';
       }
-
-      renderQuestions();
-
-      const firstCard = questionsContainer.firstElementChild;
-      if (firstCard) {
-        firstCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
     });
   }
 
-  function generateImmediateResponse(text, cat) {
-    const lower = text.toLowerCase();
-    if (lower.includes('anonymous') || lower.includes('privacy') || lower.includes('identity')) {
-      return "Thank you for raising this. Guaranteeing student privacy is our non-negotiable benchmark. The Whistleblower Vault ensures no complainant identity is shared with accused parties or unauthorized faculty.";
-    } else if (lower.includes('hostel') || lower.includes('dorm') || lower.includes('room') || lower.includes('night') || lower.includes('bus')) {
-      return "Hostel and transit safety require dedicated peer wardens on duty. We are mandating designated student ARC liaisons and bus monitoring protocols so no student feels vulnerable.";
-    } else if (lower.includes('club') || lower.includes('society') || lower.includes('inductions') || lower.includes('sports')) {
-      return "Strict anti-hazing bylaws will be enforced across all student societies and athletic rosters. Any induction involving humiliation will result in immediate club de-recognition.";
-    } else {
-      return "Thank you for this query. This is factored directly into our campaign platform. Every complaint received will be resolved with a strict 24-hour hearing mandate. I stand with you.";
-    }
-  }
-
-  // Category Filter Buttons
-  document.querySelectorAll('.feed-cat-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.feed-cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategoryFilter = btn.getAttribute('data-cat') || 'All';
-      renderQuestions();
-    });
-  });
-
-  // Manifesto Filter Buttons
-  document.querySelectorAll('.manifesto-filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.manifesto-filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const category = btn.getAttribute('data-filter');
-      
-      document.querySelectorAll('.pillar-card').forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  // Initial render
   renderQuestions();
 
-  // 4. Pocket Manifesto Modal Controller
-  const modal = document.getElementById('pocketManifestoModal');
-  const openModalBtns = document.querySelectorAll('.open-pocket-manifesto');
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  const printManifestoBtn = document.getElementById('printManifestoBtn');
-  const copyShareBtn = document.getElementById('copyShareBtn');
+  // ==========================================================================
+  // 4. LIVE MONUMENTAL PLEDGE COUNTER
+  // ==========================================================================
+  const PLEDGE_KEY = 'ashoka_arc_ballot_pledged';
+  const BASE_COUNT = 648;
+  const isPledged = localStorage.getItem(PLEDGE_KEY) === 'true';
 
-  function openModal() {
-    sound.playClick();
-    if (modal) {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+  const heroPledgeBtn = document.getElementById('heroPledgeBtn');
+  const heroPledgeCount = document.getElementById('heroPledgeCount');
+  const finalePledgeBtn = document.getElementById('pledgeActionBtn');
+  const finaleCounterDisplay = document.getElementById('pledgeCounterDisplay');
+  const pledgeStatusMsg = document.getElementById('pledgeStatusMsg');
+
+  function updatePledgeUI() {
+    const currentTally = isPledged ? BASE_COUNT + 1 : BASE_COUNT;
+
+    if (heroPledgeCount) {
+      heroPledgeCount.textContent = `${currentTally}+`;
+    }
+    if (finaleCounterDisplay) {
+      finaleCounterDisplay.textContent = currentTally;
+    }
+
+    if (isPledged) {
+      if (heroPledgeBtn) {
+        heroPledgeBtn.classList.add('pledged');
+        heroPledgeBtn.innerHTML = '✓ VOTE PLEDGED';
+      }
+      if (finalePledgeBtn) {
+        finalePledgeBtn.classList.add('pledged');
+        finalePledgeBtn.innerHTML = '✓ BALLOT PLEDGED FOR KRISHNA SINGH';
+      }
+      if (pledgeStatusMsg) {
+        pledgeStatusMsg.textContent = 'Ballot Pledged • Thank you for standing for a fearless campus.';
+      }
     }
   }
 
-  function closeModal() {
-    sound.playClick();
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
+  function handlePledgeClick() {
+    sound.playStamp();
+    if (localStorage.getItem(PLEDGE_KEY) === 'true') {
+      localStorage.removeItem(PLEDGE_KEY);
+      location.reload();
+    } else {
+      localStorage.setItem(PLEDGE_KEY, 'true');
+      location.reload();
     }
   }
 
-  openModalBtns.forEach(btn => btn.addEventListener('click', openModal));
-  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
+  if (heroPledgeBtn) {
+    heroPledgeBtn.addEventListener('click', handlePledgeClick);
+  }
+  if (finalePledgeBtn) {
+    finalePledgeBtn.addEventListener('click', handlePledgeClick);
   }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-      closeModal();
-    }
-  });
-
-  if (printManifestoBtn) {
-    printManifestoBtn.addEventListener('click', () => {
-      sound.playStamp();
-      window.print();
-    });
-  }
-
-  if (copyShareBtn) {
-    copyShareBtn.addEventListener('click', () => {
-      sound.playClick();
-      const shareUrl = window.location.href;
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        copyShareBtn.textContent = '✓ Link Copied!';
-        setTimeout(() => {
-          copyShareBtn.textContent = 'Share on WhatsApp / Campus';
-        }, 2000);
-      });
-    });
-  }
-
-  function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
-
-  // =========================================================================
-  // 5. SCROLL-BASED STORYTELLING & REVEAL ENGINE
-  // =========================================================================
-  const progressBar = document.getElementById('scrollProgressBar');
-
-  // Reading progress tracker (fallback for non-CSS scroll-timeline browsers)
-  function handleScrollProgress() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (docHeight > 0 && progressBar) {
-      const scrolled = (scrollTop / docHeight) * 100;
-      progressBar.style.width = `${Math.min(100, Math.max(0, scrolled))}%`;
-    }
-  }
-
-  window.addEventListener('scroll', handleScrollProgress, { passive: true });
-  handleScrollProgress();
-
-  // Storytelling Reveal Observer
-  const revealElements = document.querySelectorAll('[data-scroll-reveal]');
-  let hasAnimatedPledgeCounter = false;
-
-  function animatePledgeCounter(targetNumber) {
-    if (!countDisplay) return;
-    const duration = 1400; // ms
+  function animatePledgeCounter() {
+    if (!finaleCounterDisplay) return;
+    const target = isPledged ? BASE_COUNT + 1 : BASE_COUNT;
+    let current = 0;
+    const duration = 1200;
     const startTime = performance.now();
-    const startNumber = 0;
 
-    function easeOutQuart(x) {
-      return 1 - Math.pow(1 - x, 4);
-    }
-
-    function updateCounter(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.floor(startNumber + (targetNumber - startNumber) * easeOutQuart(progress));
-      countDisplay.textContent = current.toLocaleString();
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      // Ease out expo
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const val = Math.floor(ease * target);
+      finaleCounterDisplay.textContent = val;
 
       if (progress < 1) {
-        requestAnimationFrame(updateCounter);
+        requestAnimationFrame(step);
       } else {
-        countDisplay.textContent = targetNumber.toLocaleString();
+        finaleCounterDisplay.textContent = target;
       }
     }
 
-    requestAnimationFrame(updateCounter);
+    requestAnimationFrame(step);
   }
 
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-revealed');
-        
-        // If this is the monumental pledge section and hasn't animated yet
-        if (entry.target.dataset.scrollReveal === 'pledge' && !hasAnimatedPledgeCounter) {
-          hasAnimatedPledgeCounter = true;
-          animatePledgeCounter(currentCount);
-        }
+  updatePledgeUI();
 
-        // Keep observing or unobserve once revealed
-        observer.unobserve(entry.target);
+  // Escape HTML helper
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, (m) => {
+      switch (m) {
+        case '&': return '&amp;';
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '"': return '&quot;';
+        case "'": return '&#39;';
+        default: return m;
       }
     });
-  }, {
-    root: null,
-    rootMargin: '0px 0px -60px 0px',
-    threshold: 0.12
-  });
-
-  revealElements.forEach(el => revealObserver.observe(el));
-
-  // Also immediately reveal any elements already in view on load
-  setTimeout(() => {
-    revealElements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 50) {
-        el.classList.add('is-revealed');
-      }
-    });
-  }, 100);
+  }
 });
-

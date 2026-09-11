@@ -17,282 +17,363 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=hz_final_3">
 </head>
-<body>
+<body class="horizontal-scroller-active">
 
-  <!-- SCROLL STORYTELLING PROGRESS BAR -->
+  <!-- SCROLL PROGRESS METER (TOP PINNED) -->
   <div class="scroll-progress-bar" id="scrollProgressBar" aria-hidden="true"></div>
 
-  <!-- MINIMALIST FIXED EDITORIAL HEADER -->
-  <header class="minimal-nav">
-    <a href="#hero" class="nav-brand">KRISHNA SINGH</a>
-    <nav class="nav-links">
-      <a href="#manifesto">Commitments</a>
-      <a href="#dispatch">Dispatch</a>
-      <a href="#ask">Letters</a>
-      <a href="#pledge">Endorse</a>
+  <!-- FIXED MINIMALIST HEADER WITH CHAPTER MILESTONES -->
+  <header class="minimal-nav" id="mainHeader">
+    <a href="#hero" class="nav-brand" data-nav-target="0">KRISHNA SINGH</a>
+    <nav class="nav-links" id="chapterNav">
+      <a href="#hero" class="nav-item active" data-nav-target="0"><span>01</span> Cover</a>
+      <a href="#indictment" class="nav-item" data-nav-target="1"><span>02</span> Broadsheet</a>
+      <a href="#manifesto" class="nav-item" data-nav-target="2"><span>03</span> Commitments</a>
+      <a href="#dispatch" class="nav-item" data-nav-target="3"><span>04</span> Dispatch</a>
+      <a href="#ask" class="nav-item" data-nav-target="4"><span>05</span> Letters</a>
+      <a href="#pledge" class="nav-item" data-nav-target="5"><span>06</span> Endorse</a>
       <button type="button" class="nav-haptic-btn" id="audioToggleBtn" title="Toggle Haptics">
         <span id="audioToggleLabel">Haptics: OFF</span>
       </button>
     </nav>
+    <div class="nav-mobile-action">
+      <a href="#pledge" class="nav-mobile-pledge-btn" data-nav-target="5">PLEDGE</a>
+    </div>
   </header>
 
-  <main>
-    <!-- HERO: FULL-BLEED EDITORIAL ARTWORK POSTER -->
-    <section class="poster-hero" id="hero">
-      <div class="container hero-container" data-scroll-hero>
-        
-        <div class="hero-editorial-wrap">
-          <div class="hero-meta-kicker">
-            <span class="kicker-desktop">Ballot #01 • Anti-Ragging Committee • Ashoka '26</span>
-            <span class="kicker-mobile">Ballot #01 • ARC '26</span>
+  <!-- VIRTUAL HORIZONTAL SCROLL CONTAINER -->
+  <div class="scroll-track-container" id="scrollTrackContainer">
+    <div class="viewport-sticky" id="viewportSticky">
+      
+      <!-- KINETIC FLOATING OBJECTS (PERSISTENT MULTI-PLANE) -->
+      <div class="kinetic-seal-wrap" id="kineticSealWrap" title="Ashoka Anti-Ragging Committee 2026">
+        <svg class="kinetic-seal" width="84" height="84" viewBox="0 0 160 160" aria-hidden="true">
+          <circle cx="80" cy="80" r="74" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="4 4"/>
+          <circle cx="80" cy="80" r="66" fill="rgba(198, 33, 24, 0.9)" stroke="#ffffff" stroke-width="1.5"/>
+          <path id="sealCurve" d="M 80,80 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" fill="none"/>
+          <text font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#ffffff" letter-spacing="2">
+            <textPath href="#sealCurve" startOffset="0%">• ASHOKA ARC 2026 • BALLOT #01 • KRISHNA SINGH </textPath>
+          </text>
+          <text x="80" y="86" font-family="var(--font-display)" font-size="24" fill="#ffffff" text-anchor="middle">KS</text>
+        </svg>
+      </div>
+
+      <!-- HORIZONTAL RAIL -->
+      <div class="horizontal-rail" id="horizontalRail">
+
+        <!-- =================================================================
+             SCENE 1: THE HERO COVER POSTER (CADMIUM RED)
+             ================================================================= -->
+        <section class="h-scene scene-hero" id="hero" data-scene-index="0">
+          <div class="scene-inner hero-inner">
+            
+            <div class="hero-editorial-wrap">
+              <div class="hero-meta-kicker">
+                <span class="kicker-desktop">Ballot #01 • Anti-Ragging Committee • Ashoka '26</span>
+                <span class="kicker-mobile">Ballot #01 • ARC '26</span>
+              </div>
+
+              <h1 class="hero-giant-title">
+                <span>Krishna</span>
+                <span>Singh</span>
+              </h1>
+
+              <div class="hero-credo">
+                <p class="hero-credo-lead">Break the code of silence.</p>
+                <p class="hero-credo-sub">
+                  A university must be a space of fearless curiosity and community—never one where students endure intimidation disguised as tradition.
+                </p>
+              </div>
+
+              <div class="hero-actions-row">
+                <button type="button" class="btn-hero-pledge" id="heroPledgeBtn">
+                  Pledge Ballot (<span id="heroPledgeCount">648+</span>)
+                </button>
+                <a href="#manifesto" class="link-hero-manifesto" data-nav-target="2">
+                  The Platform →
+                </a>
+              </div>
+            </div>
+
           </div>
 
-          <h1 class="hero-giant-title">
-            <span>Krishna</span>
-            <span>Singh</span>
-          </h1>
-
-          <div class="hero-credo">
-            <p class="hero-credo-lead">Break the code of silence.</p>
-            <p class="hero-credo-sub">
-              A university must be a space of fearless curiosity and community—never one where students endure intimidation disguised as tradition.
-            </p>
-          </div>
-
-          <div class="hero-actions-row">
-            <button type="button" class="btn-hero-pledge" id="heroPledgeBtn">
-              Pledge Ballot (<span id="heroPledgeCount">648+</span>)
-            </button>
-            <a href="#manifesto" class="link-hero-manifesto">
-              The Platform ↓
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- DELICATE BOTTOM TICKER (INTEGRATED EDITORIAL RULE) -->
-      <div class="hero-bottom-ticker">
-        <div class="container ticker-container">
-          <div class="ticker-item"><strong>01</strong> 24H Inquiry</div>
-          <div class="ticker-divider">•</div>
-          <div class="ticker-item"><strong>02</strong> Anonymous Vault</div>
-          <div class="ticker-divider">•</div>
-          <div class="ticker-item"><strong>03</strong> Induction Reform</div>
-          <div class="ticker-divider">•</div>
-          <div class="ticker-item"><strong>04</strong> Public Audit</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MANIFESTO: RADICAL EDITORIAL BROADSHEET -->
-    <section class="manifesto-section" id="manifesto">
-      <div class="container">
-        
-        <div class="section-head-minimal">
-          <span class="kicker-sub">The Platform</span>
-          <h2 class="title-mega-clean">Four Concrete Commitments.</h2>
-          <p class="manifesto-intro-lead">
-            Non-negotiable bylaws designed to dismantle coercion, protect whistleblowers, and bring total transparency to student life at Ashoka.
-          </p>
-        </div>
-
-        <div class="manifesto-list-clean">
-          
-          <!-- Item 01 -->
-          <article class="manifesto-item-clean" data-scroll-reveal="commitment">
-            <div class="manifesto-num-clean">01</div>
-            <div class="manifesto-title-clean">The Confidential Whistleblower Line</div>
-            <div class="manifesto-body-clean">
-              <p class="manifesto-lead-text">
-                Fear of social retaliation keeps students silent. We establish an ironclad, untraceable reporting channel directly to the student representative.
-              </p>
-              <p class="manifesto-detail-text">
-                Complainants receive private cryptographic tracking tokens with zero university ERP or Ashoka email logging. Any attempt by seniors or accused parties to confront or ostracize a complainant carries immediate residential campus suspension.
-              </p>
-            </div>
-          </article>
-
-          <!-- Item 02 -->
-          <article class="manifesto-item-clean" data-scroll-reveal="commitment">
-            <div class="manifesto-num-clean">02</div>
-            <div class="manifesto-title-clean">24-Hour Mandatory Hearing Clause</div>
-            <div class="manifesto-body-clean">
-              <p class="manifesto-lead-text">
-                Justice delayed is intimidation multiplied. When an incident occurs in residence corridors (RH1–RH5) or off-campus shuttles, action cannot wait weeks.
-              </p>
-              <p class="manifesto-detail-text">
-                Preliminary committee proceedings must formally open within 24 hours of submission. Includes immediate, discreet alternative room relocation within 3 hours if a student feels unsafe in their hall.
-              </p>
-            </div>
-          </article>
-
-          <!-- Item 03 -->
-          <article class="manifesto-item-clean" data-scroll-reveal="commitment">
-            <div class="manifesto-num-clean">03</div>
-            <div class="manifesto-title-clean">Clean Inductions &amp; O-Week Reform</div>
-            <div class="manifesto-body-clean">
-              <p class="manifesto-lead-text">
-                Hazing too often hides behind the mask of "society traditions" or "sports team bonding." We draw a non-negotiable boundary.
-              </p>
-              <p class="manifesto-detail-text">
-                All club tryouts, dance inductions, and athletic rosters must publish Dean-approved charters. Closed-door humiliation rituals result in immediate society de-recognition. Anti-ragging bylaws explicitly extend to dhaba visits and off-campus gatherings.
-              </p>
-            </div>
-          </article>
-
-          <!-- Item 04 -->
-          <article class="manifesto-item-clean" data-scroll-reveal="commitment">
-            <div class="manifesto-num-clean">04</div>
-            <div class="manifesto-title-clean">The Open Record: Public Accountability</div>
-            <div class="manifesto-body-clean">
-              <p class="manifesto-lead-text">
-                The Anti-Ragging Committee cannot remain a black box. The student body deserves full visibility on grievance resolutions.
-              </p>
-              <p class="manifesto-detail-text">
-                Publishing bi-monthly anonymized resolution metrics—tracking report counts, turnaround times, and corrective actions taken so students know their voices bring real outcomes.
-              </p>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- DISPATCH: CANDID VOICE & PHILOSOPHY -->
-    <section class="dispatch-section" id="dispatch">
-      <div class="container">
-        <div class="dispatch-grid">
-          
-          <div class="dispatch-img-wrap" data-scroll-reveal="image">
-            <img src="assets/images/krishna_portrait.jpg" alt="Krishna Singh on campus bench outside academic block, Ashoka University" width="600" height="800" loading="lazy">
-            <div class="dispatch-caption-clean">
-              <span>Krishna Singh</span>
-              <span>Outside Academic Block • Ashoka University</span>
+          <!-- DELICATE BOTTOM TICKER -->
+          <div class="hero-bottom-ticker">
+            <div class="ticker-container">
+              <div class="ticker-item"><strong>01</strong> 24H Inquiry</div>
+              <div class="ticker-divider">•</div>
+              <div class="ticker-item"><strong>02</strong> Anonymous Vault</div>
+              <div class="ticker-divider">•</div>
+              <div class="ticker-item"><strong>03</strong> Induction Reform</div>
+              <div class="ticker-divider">•</div>
+              <div class="ticker-item"><strong>04</strong> Public Audit</div>
+              <div class="ticker-divider">•</div>
+              <div class="ticker-item ticker-hint">Scroll or Drag Horizontally →</div>
             </div>
           </div>
+        </section>
 
-          <div class="dispatch-text-side" data-scroll-reveal="text">
-            <span class="kicker-sub">Candidate Dispatch</span>
-            <blockquote class="dispatch-quote">
-              "Respect is never coerced. A university must be a space of fearless curiosity—never one where students endure intimidation disguised as tradition."
-            </blockquote>
-            <p class="dispatch-body">
-              For two years, I have watched peers hesitate to report coercive behavior because they feared social fallout, whisper networks, or administrative apathy. The Anti-Ragging Committee cannot just be a passive email address buried in a handbook. It must be an active, uncompromising student shield.
-            </p>
-            <p class="dispatch-body dispatch-body-secondary">
-              Whether it's subtle pressure during club tryouts, corridor bullying in residence halls, or off-campus hazing, no student should ever have to normalize harassment to belong. I am standing to ensure that every Ashokan is protected, heard, and backed by swift, decisive action.
-            </p>
-            <div class="dispatch-signature">
-              <strong>Krishna Singh</strong>
-              <span>Undergraduate '26 • Candidate for Anti-Ragging Committee</span>
-            </div>
+        <!-- =================================================================
+             SCENE 2: THE INDICTMENT & BROADSHEET SLASH (VINTAGE NEWSPRINT)
+             ================================================================= -->
+        <section class="h-scene scene-indictment" id="indictment" data-scene-index="1">
+          <div class="broadsheet-bg-parallax" aria-hidden="true">
+            <span>THE ASHOKA CHRONICLE • ZERO INTIMIDATION PROTOCOL • STUDENT LIFE BYLAWS • ACADEMIC YEAR 2026 •</span>
           </div>
 
-        </div>
-      </div>
-    </section>
+          <div class="scene-inner indictment-inner">
+            <div class="indictment-editorial-col">
+              <span class="scene-index-badge">02 // The Indictment</span>
+              <div class="kinetic-stamp stamp-verified">ZERO TOLERANCE // ARTICLE 26</div>
+              
+              <blockquote class="indictment-headline">
+                "Respect is never coerced. A university must be a space of fearless curiosity—never one where students normalize intimidation to belong."
+              </blockquote>
 
-    <!-- LETTERS TO KRISHNA (MINIMALIST Q&A & INQUIRY FEED) -->
-    <section class="ask-section-minimal" id="ask">
-      <div class="container">
-        
-        <div class="section-head-minimal" data-scroll-reveal="heading">
-          <span class="kicker-sub">Open Dialogue</span>
-          <h2 class="title-mega-clean">Letters to Krishna.</h2>
-          <p class="manifesto-intro-lead">
-            Submit a question, report a concern, or challenge the platform. Post with your name or completely anonymously.
-          </p>
-        </div>
-
-        <div class="ask-grid-minimal">
-          
-          <!-- Clean Form -->
-          <form class="ask-form-clean" id="askKrishnaForm" data-scroll-reveal="form">
-            <div class="form-field-clean">
-              <label for="inquiryAuthor">Your Name or Alias (Optional)</label>
-              <input type="text" id="inquiryAuthor" class="form-input-clean" placeholder="e.g. Kabir / UG27 / RH3">
+              <p class="indictment-lead">
+                For too long, residential corridors, society tryouts, and late-night off-campus gatherings have tolerated whispered coercion under the pretext of "bonding." 
+              </p>
+              
+              <div class="indictment-stat-grid">
+                <div class="stat-pill">
+                  <div class="stat-num">24H</div>
+                  <div class="stat-lbl">Mandatory Action Mandate</div>
+                </div>
+                <div class="stat-pill">
+                  <div class="stat-num">100%</div>
+                  <div class="stat-lbl">Cryptographic Whistleblower Anonymity</div>
+                </div>
+              </div>
             </div>
-
-            <label class="form-anon-toggle">
-              <input type="checkbox" id="inquiryAnonymous">
-              <span>Post Anonymously (Identity concealed)</span>
-            </label>
-
-            <div class="form-field-clean">
-              <label for="inquiryCategory">Concern Area</label>
-              <select id="inquiryCategory" class="form-select-clean">
-                <option value="Campus Safety">Residence Halls &amp; Shuttles</option>
-                <option value="Initiation Rituals">Society &amp; Sports Inductions</option>
-                <option value="Whistleblower Shield">Confidentiality &amp; Whistleblowing</option>
-                <option value="Freshmen Care">Freshmen &amp; Orientation Week</option>
-                <option value="Committee Bylaws">Committee Accountability</option>
-              </select>
-            </div>
-
-            <div class="form-field-clean">
-              <label for="inquiryQuestion">Your Inquiry</label>
-              <textarea id="inquiryQuestion" class="form-textarea-clean" placeholder="Write your question, feedback, or grievance..." required></textarea>
-            </div>
-
-            <button type="submit" class="btn-clean-submit" id="btnSubmitInquiry">
-              Send Dispatch
-            </button>
-          </form>
-
-          <!-- Clean Feed -->
-          <div class="feed-clean" id="questionsFeedContainer" data-scroll-reveal="feed">
-            <!-- Dynamic inquiries injected by js/app.js -->
           </div>
+        </section>
 
-        </div>
+        <!-- =================================================================
+             SCENE 3: THE 4 COMMITMENTS (MONOLITH GALLERY)
+             ================================================================= -->
+        <section class="h-scene scene-manifesto" id="manifesto" data-scene-index="2">
+          <div class="scene-inner manifesto-inner">
+            
+            <div class="manifesto-header-col">
+              <span class="scene-index-badge">03 // The Platform</span>
+              <h2 class="title-mega-clean">Four Concrete Commitments.</h2>
+              <p class="manifesto-intro-lead">
+                Non-negotiable bylaws designed to dismantle coercion, protect whistleblowers, and bring total transparency to student life at Ashoka.
+              </p>
+            </div>
 
-      </div>
-    </section>
+            <div class="monolith-gallery">
+              
+              <!-- Monolith 01 -->
+              <article class="monolith-card" data-monolith="1">
+                <div class="monolith-top">
+                  <span class="monolith-num">01</span>
+                  <span class="monolith-badge">ENCRYPTED</span>
+                </div>
+                <h3 class="monolith-title">The Confidential Whistleblower Line</h3>
+                <p class="monolith-lead">
+                  Fear of social retaliation keeps students silent. We establish an ironclad, untraceable reporting channel directly to the student representative.
+                </p>
+                <p class="monolith-detail manifesto-detail-text">
+                  Complainants receive private cryptographic tracking tokens with zero university ERP or Ashoka email logging. Any retaliation carries immediate residential campus suspension.
+                </p>
+                <div class="monolith-rule"></div>
+              </article>
 
-    <!-- MONUMENTAL PLEDGE FINALE -->
-    <section class="pledge-section-monumental" id="pledge">
-      <div class="container">
-        <div class="pledge-box-monumental" data-scroll-reveal="pledge">
-          <div class="pledge-kicker">Solidarity Tally</div>
-          <div class="pledge-giant-num" id="pledgeCounterDisplay">648</div>
-          <div class="pledge-sub-clean">
-            <span class="pledge-sub-desktop">Ashokans Have Pledged Their Ballot For Krishna Singh</span>
-            <span class="pledge-sub-mobile">Ashokans Standing in Solidarity</span>
+              <!-- Monolith 02 -->
+              <article class="monolith-card" data-monolith="2">
+                <div class="monolith-top">
+                  <span class="monolith-num">02</span>
+                  <span class="monolith-badge">24H ACTION</span>
+                </div>
+                <h3 class="monolith-title">24-Hour Mandatory Hearing Clause</h3>
+                <p class="monolith-lead">
+                  Justice delayed is intimidation multiplied. When an incident occurs in residence corridors (RH1–RH5) or off-campus shuttles, action cannot wait weeks.
+                </p>
+                <p class="monolith-detail manifesto-detail-text">
+                  Preliminary committee proceedings formally open within 24 hours of submission. Includes discreet alternative room relocation within 3 hours if a student feels unsafe.
+                </p>
+                <div class="monolith-rule"></div>
+              </article>
+
+              <!-- Monolith 03 -->
+              <article class="monolith-card" data-monolith="3">
+                <div class="monolith-top">
+                  <span class="monolith-num">03</span>
+                  <span class="monolith-badge">REFORM</span>
+                </div>
+                <h3 class="monolith-title">Clean Inductions &amp; O-Week Reform</h3>
+                <p class="monolith-lead">
+                  Hazing too often hides behind "society traditions" or "sports team bonding." We draw a non-negotiable boundary.
+                </p>
+                <p class="monolith-detail manifesto-detail-text">
+                  All club tryouts, dance inductions, and athletic rosters must publish Dean-approved charters. Closed-door humiliation rituals result in immediate society de-recognition.
+                </p>
+                <div class="monolith-rule"></div>
+              </article>
+
+              <!-- Monolith 04 -->
+              <article class="monolith-card" data-monolith="4">
+                <div class="monolith-top">
+                  <span class="monolith-num">04</span>
+                  <span class="monolith-badge">AUDITED</span>
+                </div>
+                <h3 class="monolith-title">The Open Record: Public Accountability</h3>
+                <p class="monolith-lead">
+                  The Anti-Ragging Committee cannot remain a black box. The student body deserves full visibility on grievance resolutions.
+                </p>
+                <p class="monolith-detail manifesto-detail-text">
+                  Publishing bi-monthly anonymized resolution metrics—tracking report counts, turnaround times, and corrective actions taken so students know their voices bring real outcomes.
+                </p>
+                <div class="monolith-rule"></div>
+              </article>
+
+            </div>
+
           </div>
-          
-          <button type="button" class="btn-monumental-pledge" id="pledgeActionBtn">
-            Pledge Your Vote (Ballot #01)
-          </button>
-          
-          <div class="pledge-status-clean" id="pledgeStatusMsg"></div>
-        </div>
-      </div>
-    </section>
-  </main>
+        </section>
 
-  <!-- MINIMALIST FOOTER -->
-  <footer class="minimal-footer">
-    <div class="container">
-      <div class="footer-inner-clean">
-        <div class="footer-brand-huge">
-          KRISHNA SINGH
-        </div>
-        <div class="footer-col-clean">
-          <div><strong>Anti-Ragging Committee Representative</strong></div>
-          <div>Ashoka University Elections 2026</div>
-          <div>Campus Security: 0130-230-0000 • ACWB: acwb@ashoka.edu.in</div>
-        </div>
-      </div>
-      <div class="footer-bottom-line">
-        <div>Ballot #01 • Sonipat Campus, Haryana</div>
-        <div>Zero Compromise on Student Safety</div>
-      </div>
-    </div>
-  </footer>
+        <!-- =================================================================
+             SCENE 4: CANDIDATE DISPATCH (PHOTO SPREAD & CORE MESSAGE)
+             ================================================================= -->
+        <section class="h-scene scene-dispatch" id="dispatch" data-scene-index="3">
+          <div class="scene-inner dispatch-inner">
+            
+            <div class="dispatch-photo-col">
+              <div class="dispatch-photo-frame">
+                <img src="assets/images/krishna_portrait.jpg" alt="Krishna Singh on campus bench outside academic block, Ashoka University" width="600" height="800" loading="lazy">
+                <div class="dispatch-photo-caption">
+                  <span>Krishna Singh</span>
+                  <span>Outside Academic Block • Ashoka University</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="dispatch-text-col">
+              <span class="scene-index-badge">04 // Candidate Dispatch</span>
+              <h2 class="dispatch-title">Why I Am Standing.</h2>
+              <blockquote class="dispatch-pullquote">
+                "The Anti-Ragging Committee cannot just be a passive email address buried in a handbook. It must be an active, uncompromising student shield."
+              </blockquote>
+              <p class="dispatch-p">
+                For two years, I have watched peers hesitate to report coercive behavior because they feared social fallout, whisper networks, or administrative apathy. No student should ever have to normalize harassment to belong.
+              </p>
+              <p class="dispatch-p dispatch-body-secondary">
+                Whether it's subtle pressure during club tryouts, corridor bullying in residence halls, or off-campus hazing, I am standing to ensure every Ashokan is protected, heard, and backed by swift, decisive action.
+              </p>
+              <div class="dispatch-sign-box">
+                <strong>Krishna Singh</strong>
+                <span>Undergraduate '26 • Candidate for Anti-Ragging Committee</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- =================================================================
+             SCENE 5: LETTERS TO KRISHNA (Q&A TELEGRAM FEED)
+             ================================================================= -->
+        <section class="h-scene scene-letters" id="ask" data-scene-index="4">
+          <div class="scene-inner letters-inner">
+            
+            <div class="letters-form-col">
+              <span class="scene-index-badge">05 // Open Dialogue</span>
+              <h2 class="title-mega-clean">Letters to Krishna.</h2>
+              <p class="manifesto-intro-lead">
+                Submit a question or challenge the platform. Post with your name or completely anonymously.
+              </p>
+
+              <!-- Dispatch Form -->
+              <form class="ask-form-clean" id="askKrishnaForm">
+                <div class="form-field-clean">
+                  <label for="inquiryAuthor">Your Name or Alias</label>
+                  <input type="text" id="inquiryAuthor" class="form-input-clean" placeholder="e.g. Kabir / UG27 / RH3">
+                </div>
+
+                <label class="form-anon-toggle">
+                  <input type="checkbox" id="inquiryAnonymous">
+                  <span>Post Anonymously (Identity concealed)</span>
+                </label>
+
+                <div class="form-field-clean">
+                  <label for="inquiryCategory">Concern Area</label>
+                  <select id="inquiryCategory" class="form-select-clean">
+                    <option value="Campus Safety">Residence Halls &amp; Shuttles</option>
+                    <option value="Initiation Rituals">Society &amp; Sports Inductions</option>
+                    <option value="Whistleblower Shield">Confidentiality &amp; Whistleblowing</option>
+                    <option value="Freshmen Care">Freshmen &amp; Orientation Week</option>
+                    <option value="Committee Bylaws">Committee Accountability</option>
+                  </select>
+                </div>
+
+                <div class="form-field-clean">
+                  <label for="inquiryQuestion">Your Inquiry</label>
+                  <textarea id="inquiryQuestion" class="form-textarea-clean" placeholder="Write your question, feedback, or grievance..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-clean-submit" id="btnSubmitInquiry">
+                  Send Dispatch
+                </button>
+              </form>
+            </div>
+
+            <!-- Telegram Cards Feed -->
+            <div class="letters-feed-col">
+              <div class="feed-clean" id="questionsFeedContainer">
+                <!-- Injected via js/app.js -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- =================================================================
+             SCENE 6: MONUMENTAL SOLIDARITY FINALE (OBSIDIAN & CRIMSON)
+             ================================================================= -->
+        <section class="h-scene scene-finale" id="pledge" data-scene-index="5">
+          <div class="scene-inner finale-inner">
+            
+            <div class="finale-monumental-card">
+              <div class="finale-kicker">Solidarity Tally • Ashoka '26</div>
+              
+              <div class="monumental-counter-wrap">
+                <div class="monumental-counter" id="pledgeCounterDisplay">648</div>
+              </div>
+
+              <div class="pledge-sub-clean">
+                <span class="pledge-sub-desktop">Ashokans Have Pledged Their Ballot For Krishna Singh</span>
+                <span class="pledge-sub-mobile">Ashokans Standing in Solidarity</span>
+              </div>
+
+              <button type="button" class="btn-monumental-pledge" id="pledgeActionBtn">
+                PLEDGE YOUR VOTE (BALLOT #01)
+              </button>
+
+              <div class="pledge-status-clean" id="pledgeStatusMsg"></div>
+            </div>
+
+            <!-- Footer Details Integrated into Finale Scene -->
+            <div class="finale-footer-col">
+              <div class="finale-brand-huge">KRISHNA SINGH</div>
+              <div class="finale-credo-foot">Anti-Ragging Committee Representative • 2026</div>
+              <div class="finale-contacts">
+                <div>Campus Security: <strong>0130-230-0000</strong></div>
+                <div>ACWB: <strong>acwb@ashoka.edu.in</strong></div>
+                <div>Sonipat Campus, Haryana</div>
+              </div>
+              <div class="finale-bylaw-notice">
+                Official Student Election Platform • Zero Compromise on Student Safety
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div> <!-- /horizontal-rail -->
+    </div> <!-- /viewport-sticky -->
+  </div> <!-- /scroll-track-container -->
 
   <script src="js/app.js"></script>
 </body>
