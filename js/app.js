@@ -115,9 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let scrollVelocity = 0;
   let finaleTriggered = false;
 
+  const isMobile = () => window.innerWidth <= 768;
+
   function recalculateMetrics() {
     if (!horizontalRail || !trackContainer) return;
     
+    if (isMobile()) {
+      trackContainer.style.height = 'auto';
+      horizontalRail.style.transform = 'none';
+      maxTranslateX = 0;
+      return;
+    }
+
     // Total horizontal distance to travel
     const railWidth = horizontalRail.scrollWidth;
     const windowWidth = window.innerWidth;
@@ -135,11 +144,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Smooth RAF Animation Loop
   function tick() {
-    // Current vertical scroll progress
     const scrollY = window.scrollY;
+
+    // ------------------------------------------------------------------------
+    // PURE VERTICAL SCROLL MODE FOR PHONES (<= 768px)
+    // ------------------------------------------------------------------------
+    if (isMobile()) {
+      if (horizontalRail && horizontalRail.style.transform !== 'none') {
+        horizontalRail.style.transform = 'none';
+      }
+
+      const totalDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalDocHeight > 0 ? Math.min(1, Math.max(0, scrollY / totalDocHeight)) : 0;
+
+      // Update Progress Bar
+      if (progressBar) {
+        progressBar.style.width = `${(progress * 100).toFixed(2)}%`;
+      }
+
+      // Kinetic 3D Seal Rotation
+      if (kineticSeal) {
+        const sealRot = (progress * 360) % 360;
+        kineticSeal.style.setProperty('--seal-rot', `${sealRot.toFixed(1)}deg`);
+        kineticSeal.style.setProperty('--seal-tilt', '0deg');
+      }
+
+      // Active Chapter Indicator in Nav
+      let activeIndex = 0;
+      scenes.forEach((scene, index) => {
+        const rect = scene.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.45) {
+          activeIndex = index;
+        }
+      });
+
+      navItems.forEach((item, index) => {
+        if (index === activeIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Check if Finale is in view to trigger counter animation
+      const finaleScene = document.getElementById('pledge');
+      if (finaleScene && !finaleTriggered) {
+        const rect = finaleScene.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.85) {
+          finaleTriggered = true;
+          animatePledgeCounter();
+        }
+      }
+
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    // ------------------------------------------------------------------------
+    // HORIZONTAL SCROLLYTELLING ENGINE FOR LAPTOPS / DESKTOPS (> 768px)
+    // ------------------------------------------------------------------------
     const trackTop = trackContainer ? trackContainer.offsetTop : 0;
     const effectiveScroll = Math.max(0, scrollY - trackTop);
-    const progress = Math.min(1, Math.max(0, effectiveScroll / maxTranslateX));
+    const progress = maxTranslateX > 0 ? Math.min(1, Math.max(0, effectiveScroll / maxTranslateX)) : 0;
 
     // Target X position on rail
     targetX = progress * maxTranslateX;
@@ -180,7 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeIndex = 0;
     scenes.forEach((scene, index) => {
       const sceneLeft = scene.offsetLeft;
-      const sceneWidth = scene.offsetWidth;
       if (currentX >= sceneLeft - window.innerWidth * 0.4) {
         activeIndex = index;
       }
@@ -216,21 +281,34 @@ document.addEventListener('DOMContentLoaded', () => {
       sound.playClick();
       const targetIndex = parseInt(link.getAttribute('data-nav-target'), 10);
       const targetScene = scenes[targetIndex];
-      if (targetScene && trackContainer) {
-        const sceneLeft = targetScene.offsetLeft;
-        const targetProgress = Math.min(1, sceneLeft / maxTranslateX);
-        const targetScrollY = trackContainer.offsetTop + targetProgress * maxTranslateX;
-        
+      if (!targetScene) return;
+
+      if (isMobile()) {
+        const navEl = document.querySelector('.minimal-nav');
+        const navHeight = navEl ? navEl.offsetHeight : 54;
+        const targetTop = targetScene.getBoundingClientRect().top + window.scrollY - navHeight;
         window.scrollTo({
-          top: targetScrollY,
+          top: Math.max(0, targetTop),
           behavior: 'smooth'
         });
+      } else {
+        if (trackContainer) {
+          const sceneLeft = targetScene.offsetLeft;
+          const targetProgress = maxTranslateX > 0 ? Math.min(1, sceneLeft / maxTranslateX) : 0;
+          const targetScrollY = trackContainer.offsetTop + targetProgress * maxTranslateX;
+          
+          window.scrollTo({
+            top: targetScrollY,
+            behavior: 'smooth'
+          });
+        }
       }
     });
   });
 
   // Keyboard Arrow Navigation (← / →)
   window.addEventListener('keydown', (e) => {
+    if (isMobile()) return;
     if (e.key === 'ArrowRight' || e.key === 'PageDown') {
       window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
     } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
@@ -238,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Touch Swipe for Mobile Navigation
+  // Touch Swipe for Horizontal Rail on Touch-enabled Laptops/Tablets
   let touchStartX = 0;
   let touchStartY = 0;
   window.addEventListener('touchstart', (e) => {
@@ -248,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('touchmove', (e) => {
     if (!e.touches.length) return;
+    if (isMobile()) return; // Phone uses native vertical touch scrolling
     const deltaX = touchStartX - e.touches[0].clientX;
     const deltaY = touchStartY - e.touches[0].clientY;
     

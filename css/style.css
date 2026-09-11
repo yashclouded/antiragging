@@ -916,6 +916,58 @@ html, body {
 .pledge-sub-mobile { display: none; }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  /* Unpin horizontal scrollytelling rail on phone: native, smooth vertical scroll */
+  .scroll-track-container {
+    height: auto !important;
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  .viewport-sticky {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+
+  .horizontal-rail {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Base Scene on Mobile */
+  .h-scene {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    min-height: auto !important;
+    flex-shrink: 1 !important;
+    display: flex !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--c-black);
+    overflow: hidden;
+  }
+
+  .scene-inner {
+    height: auto !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 4.5rem 1.25rem 3.5rem !important;
+  }
+
   .minimal-nav {
     padding: 0.85rem 1.25rem;
   }
@@ -960,15 +1012,26 @@ html, body {
     opacity: 0.9;
   }
 
-  .scene-inner {
-    padding: 5rem 1.5rem 3rem;
-  }
-
-  /* Scene Widths on Mobile */
+  /* Scene 1: Hero on Mobile */
   .scene-hero {
-    width: 100vw;
-    min-width: 100vw;
-    background-position: 52% bottom;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    min-height: 100svh !important;
+    height: auto !important;
+    background-position: 52% bottom !important;
+    border-right: none !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.4) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  .hero-inner {
+    flex-grow: 1;
+    padding-top: 5.5rem !important;
+    padding-bottom: 2rem !important;
+    display: flex !important;
+    align-items: center !important;
   }
   .hero-editorial-wrap {
     max-width: 47%;
@@ -1067,108 +1130,184 @@ html, body {
     display: inline-block;
   }
 
-  /* Indictment on Mobile */
+  /* Scene 2: Indictment / Broadsheet on Mobile */
   .scene-indictment {
-    width: 95vw;
-    min-width: 95vw;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--c-black) !important;
+  }
+  .broadsheet-bg-parallax {
+    display: none !important;
+  }
+  .indictment-inner {
+    padding: 4.5rem 1.25rem 4rem !important;
+    display: block !important;
+  }
+  .indictment-editorial-col {
+    max-width: 100% !important;
   }
   .indictment-headline {
-    font-size: 1.65rem;
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
+    font-size: clamp(1.65rem, 6vw, 2.2rem) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 1.2rem !important;
   }
   .indictment-lead {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.5rem !important;
   }
   .stat-num {
-    font-size: 2.2rem;
+    font-size: 2.2rem !important;
   }
 
-  /* Manifesto on Mobile */
+  /* Scene 3: Manifesto / Five Commitments on Mobile */
   .scene-manifesto {
-    width: max-content;
-    min-width: 440vw;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--c-black) !important;
   }
   .manifesto-inner {
-    gap: 2rem;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 2.2rem !important;
+    padding: 4.5rem 1.25rem 4rem !important;
   }
   .manifesto-header-col {
-    width: 240px;
-  }
-  .title-mega-clean {
-    font-size: clamp(2.2rem, 8vw, 3rem);
-  }
-  .monolith-card {
-    width: 270px;
-    min-height: 440px;
-    padding: 1.8rem 1.4rem;
-  }
-  .monolith-num {
-    font-size: 2.8rem;
-  }
-  .monolith-title {
-    font-size: 1.35rem;
-    min-height: auto;
-    margin-bottom: 0.8rem;
-  }
-  .monolith-lead {
-    font-size: 0.88rem;
-    line-height: 1.5;
-  }
-
-  /* Dispatch on Mobile */
-  .scene-dispatch {
-    width: max-content;
-    min-width: 200vw;
-  }
-  .dispatch-inner {
-    gap: 2rem;
-  }
-  .dispatch-photo-col {
-    width: 260px;
+    width: 100% !important;
+    max-width: 100% !important;
     flex-shrink: 0;
   }
+  .title-mega-clean {
+    font-size: clamp(2.2rem, 8vw, 3rem) !important;
+    line-height: 0.95 !important;
+    margin-bottom: 0.8rem !important;
+  }
+  .monolith-gallery {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    height: auto !important;
+    align-items: stretch !important;
+  }
+  .monolith-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    padding: 1.8rem 1.4rem !important;
+    border: 1.5px solid var(--c-black) !important;
+    box-shadow: 4px 4px 0 var(--c-black) !important;
+  }
+  .monolith-num {
+    font-size: 2.8rem !important;
+  }
+  .monolith-title {
+    font-size: 1.35rem !important;
+    line-height: 1.15 !important;
+    min-height: auto !important;
+    margin-bottom: 0.8rem !important;
+  }
+  .monolith-lead {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  /* Scene 4: Candidate Dispatch on Mobile */
+  .scene-dispatch {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--c-black) !important;
+  }
+  .dispatch-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 2.2rem !important;
+    padding: 4.5rem 1.25rem 4rem !important;
+  }
+  .dispatch-photo-col {
+    width: 100% !important;
+    max-width: 380px !important;
+    margin: 0 auto !important;
+    flex-shrink: 0;
+  }
+  .dispatch-photo-frame {
+    width: 100%;
+  }
+  .dispatch-photo-frame img {
+    width: 100%;
+    height: auto;
+  }
   .dispatch-text-col {
-    width: 300px;
+    width: 100% !important;
+    max-width: 100% !important;
     flex-shrink: 0;
   }
   .dispatch-title {
-    font-size: 2.2rem;
+    font-size: clamp(2.2rem, 7.5vw, 2.8rem) !important;
+    margin-bottom: 1.2rem !important;
   }
   .dispatch-pullquote {
-    font-size: 1.15rem;
-    line-height: 1.35;
+    font-size: 1.15rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 1.2rem !important;
   }
   .dispatch-p {
-    font-size: 0.9rem;
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
   }
 
-  /* Finale on Mobile */
+  /* Scene 5: Finale on Mobile */
   .scene-finale {
-    width: 120vw;
-    min-width: 120vw;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    min-height: 80vh !important;
+    border-right: none !important;
+    border-bottom: none !important;
   }
   .finale-inner {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    gap: 2.5rem !important;
+    padding: 5rem 1.25rem 5rem !important;
+  }
+  .finale-monumental-card {
+    width: 100% !important;
+    max-width: 100% !important;
   }
   .monumental-counter {
-    font-size: 5.5rem;
+    font-size: clamp(5rem, 16vw, 7rem) !important;
   }
   .btn-monumental-pledge {
-    padding: 1rem 1.8rem;
-    font-size: 1.1rem;
+    width: 100% !important;
+    text-align: center;
+    padding: 1.1rem 1.5rem !important;
+    font-size: 1.1rem !important;
   }
   .finale-footer-col {
-    border-left: none;
-    padding-left: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    padding-top: 1.5rem;
+    width: 100% !important;
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding-top: 1.8rem !important;
   }
   .finale-brand-huge {
-    font-size: 2.5rem;
+    font-size: 2.5rem !important;
   }
 }
