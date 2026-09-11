@@ -462,10 +462,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (finalePledgeBtn) {
         finalePledgeBtn.classList.add('pledged');
-        finalePledgeBtn.innerHTML = '✓ BALLOT PLEDGED FOR KRISHNA SINGH';
+        finalePledgeBtn.innerHTML = '✓ SOLIDARITY PLEDGED FOR KRISHNA SINGH';
       }
       if (pledgeStatusMsg) {
-        pledgeStatusMsg.textContent = 'Ballot Pledged • Thank you for standing for a fearless campus.';
+        pledgeStatusMsg.textContent = 'Solidarity Recorded • Thank you for standing for a fearless campus.';
       }
     }
   }
