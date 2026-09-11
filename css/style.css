@@ -153,6 +153,39 @@ html, body {
   border-color: #ffffff;
 }
 
+/* Navbar Voting Pill */
+.nav-voting-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 5px 12px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  margin-left: 0.25rem;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
+  white-space: nowrap;
+}
+
+.nav-voting-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: votingDotPulse 1.6s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes votingDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
 /* Highlighted Instagram Header Buttons */
 .nav-insta-btn {
   display: inline-flex;
@@ -394,6 +427,71 @@ html, body {
   color: rgba(255, 255, 255, 0.92);
 }
 
+/* Big & Bold Hero Voting Callout */
+.hero-voting-callout {
+  margin: 1.4rem 0 1.9rem;
+  padding: 1.15rem 1.45rem;
+  background: #000000;
+  border: 2px solid #ffffff;
+  border-left: 6px solid #ffffff;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 0, 0, 0.35);
+  display: inline-block;
+  max-width: 100%;
+  position: relative;
+  z-index: 4;
+}
+
+.voting-callout-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.voting-live-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  display: inline-block;
+  animation: votingDotPulse 1.6s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.voting-callout-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.voting-callout-date {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.4vw, 3.5rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.voting-callout-time {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.1vw, 1.65rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #111111;
+  background: #ffffff;
+  display: inline-block;
+  padding: 4px 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
 .hero-actions-row {
   display: flex;
   gap: 1.5rem;
@@ -491,6 +589,36 @@ html, body {
 .hero-insta-highlight-btn span {
   position: relative;
   z-index: 2;
+}
+
+/* Ticker Voting Highlight */
+.ticker-voting-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+}
+
+.ticker-voting-highlight strong {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.voting-ticker-badge {
+  background: var(--c-red);
+  color: #ffffff;
+  font-size: 0.62rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 /* Ticker Instagram Item */
@@ -980,7 +1108,55 @@ html, body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Finale Big & Bold Voting Callout */
+.finale-voting-callout {
+  margin-bottom: 2.2rem;
+  padding: 1.25rem 1.75rem;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #ffffff;
+  border-left: 6px solid var(--c-red);
+  box-shadow: 6px 6px 0 var(--c-red), 0 0 30px rgba(198, 33, 24, 0.25);
+  text-align: left;
+}
+
+.finale-voting-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 0.45rem;
+}
+
+.finale-voting-date {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.finale-voting-hours {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-black);
+  background: #ffffff;
+  display: inline-block;
+  padding: 4px 14px;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .btn-monumental-pledge {
@@ -1238,6 +1414,31 @@ html, body {
     line-height: 1.25;
     margin-bottom: 0;
   }
+  .hero-voting-callout {
+    margin: 0.75rem 0 1.1rem;
+    padding: 0.65rem 0.85rem;
+    border-left-width: 4px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .voting-callout-header {
+    margin-bottom: 0.25rem;
+    gap: 0.35rem;
+  }
+  .voting-callout-kicker {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+  .voting-callout-date {
+    font-size: clamp(1.5rem, 6.8vw, 2.1rem);
+    line-height: 0.92;
+    margin-bottom: 0.35rem;
+  }
+  .voting-callout-time {
+    font-size: clamp(0.86rem, 3.6vw, 1.1rem);
+    padding: 3px 7px;
+  }
   .hero-actions-row {
     flex-direction: column;
     align-items: flex-start;
@@ -1489,6 +1690,25 @@ html, body {
   .monumental-counter {
     font-size: clamp(5rem, 16vw, 7rem) !important;
   }
+  .finale-voting-callout {
+    margin-bottom: 1.8rem;
+    padding: 1rem 1.15rem;
+    border-left-width: 5px;
+    box-shadow: 4px 4px 0 var(--c-red);
+  }
+  .finale-voting-tag {
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+  }
+  .finale-voting-date {
+    font-size: clamp(2rem, 9.5vw, 2.85rem);
+    line-height: 0.92;
+    margin-bottom: 0.35rem;
+  }
+  .finale-voting-hours {
+    font-size: clamp(1.05rem, 4.8vw, 1.35rem);
+    padding: 3px 9px;
+  }
   .btn-monumental-pledge {
     width: 100% !important;
     text-align: center;
@@ -1513,3 +1733,16 @@ html, body {
     font-size: 2.5rem !important;
   }
 }
+
+@media (max-width: 400px) {
+  .nav-mobile-insta-btn {
+    font-size: 0.65rem;
+    padding: 5px 8px;
+    gap: 0.25rem;
+  }
+  .nav-mobile-pledge-btn {
+    padding: 5px 9px;
+    font-size: 0.72rem;
+  }
+}
+
